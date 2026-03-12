@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://your-backend-url.onrender.com/api/:path*" },
-    { "source": "/socket.io/:path*", "destination": "https://your-backend-url.onrender.com/socket.io/:path*" }
+    { "source": "/api/:path*", "destination": "https://restaurant-api-xxxx.onrender.com/api/:path*" }
   ]
 }
