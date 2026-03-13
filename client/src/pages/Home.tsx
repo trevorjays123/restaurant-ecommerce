@@ -5,7 +5,7 @@ import { useUIStore } from '@/store/uiStore';
 import { useCartStore } from '@/store/cartStore';
 import type { MenuItem, CuisineType } from '@/types';
 
-// Sample featured items
+// Sample featured items with real Unsplash images
 const featuredItems: MenuItem[] = [
   {
     id: '1',
@@ -14,8 +14,8 @@ const featuredItems: MenuItem[] = [
     price: 3500,
     category: 'Mains',
     cuisine: 'nigerian',
-    images: ['/images/nigerian/jollof.jpg'],
-    thumbnail: '/images/nigerian/jollof.jpg',
+    images: ['https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800',
     dietary: [],
     available: true,
     preparationTime: 30,
@@ -30,8 +30,8 @@ const featuredItems: MenuItem[] = [
     price: 8500,
     category: 'Mains',
     cuisine: 'continental',
-    images: ['/images/continental/salmon.jpg'],
-    thumbnail: '/images/continental/salmon.jpg',
+    images: ['https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800',
     dietary: ['gluten-free'],
     available: true,
     preparationTime: 25,
@@ -46,8 +46,8 @@ const featuredItems: MenuItem[] = [
     price: 4200,
     category: 'Burgers',
     cuisine: 'fastfood',
-    images: ['/images/fastfood/suya-burger.jpg'],
-    thumbnail: '/images/fastfood/suya-burger.jpg',
+    images: ['https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800',
     dietary: [],
     available: true,
     preparationTime: 15,
