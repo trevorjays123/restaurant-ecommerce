@@ -1,35 +1,31 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { X, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 import { useUIStore } from '@/store/uiStore';
 import { useCartStore } from '@/store/cartStore';
+import { useMemo } from 'react';
 
 export default function CartDrawer() {
   const { isCartOpen, setCartOpen } = useUIStore();
   const { items, updateQuantity, removeItem, subtotal, deliveryFee, discount, total } = useCartStore();
 
+  // Memoize calculations to prevent re-renders
+  const itemCount = useMemo(() => items.length, [items]);
+  const isEmpty = itemCount === 0;
+
   return (
-    <AnimatePresence>
+    <>
       {isCartOpen && (
         <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          {/* Backdrop - simplified */}
+          <div
             onClick={() => setCartOpen(false)}
             className="fixed inset-0 bg-black/50 z-50"
           />
           
-          {/* Drawer */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-xl"
+          {/* Drawer - without animation */}
+          <div
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-xl flex flex-col"
           >
-            <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b">
                 <h2 className="text-lg font-semibold flex items-center gap-2">
@@ -61,12 +57,8 @@ export default function CartDrawer() {
                 ) : (
                   <div className="space-y-4">
                     {items.map((item) => (
-                      <motion.div
+                      <div
                         key={item.id}
-                        layout
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
                         className="flex gap-3 p-3 bg-gray-50 rounded-lg"
                       >
                         <img
@@ -102,7 +94,7 @@ export default function CartDrawer() {
                             </button>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 )}
@@ -148,9 +140,9 @@ export default function CartDrawer() {
                 </div>
               )}
             </div>
-          </motion.div>
+          </div>
         </>
       )}
-    </AnimatePresence>
+    </>
   );
 }
