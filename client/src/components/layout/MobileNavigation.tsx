@@ -2,13 +2,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { Home, Menu as MenuIcon, User, ShoppingCart } from 'lucide-react';
 import { useUIStore } from '@/store/uiStore';
 import { useCartStore } from '@/store/cartStore';
+import { useMemo } from 'react';
 
 export default function MobileNavigation() {
   const location = useLocation();
   const { toggleCart } = useUIStore();
-  const { getItemCount } = useCartStore();
+  const items = useCartStore((state) => state.items);
   
-  const cartCount = getItemCount();
+  // Memoize cart count
+  const cartCount = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items]);
 
   const navItems = [
     { icon: Home, label: 'Home', path: '/' },
@@ -31,14 +33,7 @@ export default function MobileNavigation() {
                   onClick={item.action}
                   className="flex flex-col items-center gap-1 px-4 py-2"
                 >
-                  <div className="relative">
-                    <Icon className={`w-6 h-6 ${isActive ? 'text-primary' : 'text-text-secondary'}`} />
-                    {item.label === 'Cart' && cartCount > 0 && (
-                      <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs rounded-full flex items-center justify-center">
-                        {cartCount}
-                      </span>
-                    )}
-                  </div>
+                  <Icon className={`w-6 h-6 ${isActive ? 'text-primary' : 'text-text-secondary'}`} />
                   <span className={`text-xs ${isActive ? 'text-primary font-medium' : 'text-text-secondary'}`}>
                     {item.label}
                   </span>
