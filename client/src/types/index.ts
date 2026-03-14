@@ -1,9 +1,9 @@
 // Cuisine Types
-export type CuisineType = 'nigerian' | 'continental' | 'fastfood';
+export type CuisineType = 'nigerian' | 'continental' | 'fastfood' | 'beverages';
 
 // Menu Item Types
 export type DietaryTag = 'vegetarian' | 'vegan' | 'gluten-free' | 'nut-free' | 'halal';
-export type SpiceLevel = 1 | 2 | 3;
+export type SpiceLevel = 0 | 1 | 2 | 3;
 
 export interface MenuItem {
   id: string;
@@ -244,5 +244,14 @@ export const cuisineThemes = {
     },
     font: 'fun',
     animation: 'bounce-gentle',
+  },
+  beverages: {
+    colors: {
+      primary: '#2E7D32',
+      secondary: '#81C784',
+      accent: '#4CAF50',
+    },
+    font: 'fresh',
+    animation: 'bubble',
   },
 } as const;

@@ -5,6 +5,7 @@ import { Search, Filter, Grid, List, Star, Clock, Plus } from 'lucide-react';
 import { useUIStore } from '@/store/uiStore';
 import { useCartStore } from '@/store/cartStore';
 import type { MenuItem, CuisineType } from '@/types';
+import { menuItems, getCuisineCategories } from '@/data/menuItems';
 
 // Menu items with Unsplash images
 const sampleMenuItems: MenuItem[] = [
@@ -232,7 +233,7 @@ export default function Menu() {
     setCurrentCuisine(cuisine);
   }
 
-  const filteredItems = sampleMenuItems.filter((item) => {
+  const filteredItems = menuItems.filter((item) => {
     const matchesCuisine = item.cuisine === currentCuisine;
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -250,6 +251,7 @@ export default function Menu() {
       case 'nigerian': return 'Nigerian';
       case 'continental': return 'Continental';
       case 'fastfood': return 'Fast Food';
+      case 'beverages': return 'Beverages';
       default: return 'Menu';
     }
   };
