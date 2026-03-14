@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://restaurant-ecommerce-cn1u.onrender.com/api/:path*" },
-    { "source": "/:path*", "destination": "/index.html" }
+    { "source": "/api(.*)", "destination": "https://restaurant-ecommerce-cn1u.onrender.com/api:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
