@@ -6,7 +6,7 @@ import { useUIStore } from '@/store/uiStore';
 import { useCartStore } from '@/store/cartStore';
 import type { MenuItem, CuisineType } from '@/types';
 
-// Sample menu data - Using reliable Unsplash images
+// Menu items with Unsplash images
 const sampleMenuItems: MenuItem[] = [
   // Nigerian Cuisine
   {
