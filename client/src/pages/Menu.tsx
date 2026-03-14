@@ -6,8 +6,9 @@ import { useUIStore } from '@/store/uiStore';
 import { useCartStore } from '@/store/cartStore';
 import type { MenuItem, CuisineType } from '@/types';
 
-// Sample menu data
+// Sample menu data - Using reliable Unsplash images
 const sampleMenuItems: MenuItem[] = [
+  // Nigerian Cuisine
   {
     id: '1',
     name: 'Party Jollof Rice',
@@ -15,8 +16,8 @@ const sampleMenuItems: MenuItem[] = [
     price: 3500,
     category: 'Mains',
     cuisine: 'nigerian',
-    images: ['https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800'],
-    thumbnail: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800',
+    images: ['https://images.unsplash.com/photo-1626844131082-256783844137?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1626844131082-256783844137?w=800',
     dietary: [],
     available: true,
     preparationTime: 30,
@@ -32,8 +33,8 @@ const sampleMenuItems: MenuItem[] = [
     price: 2500,
     category: 'Starters',
     cuisine: 'nigerian',
-    images: ['https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800'],
-    thumbnail: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800',
+    images: ['https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800',
     dietary: [],
     available: true,
     preparationTime: 15,
@@ -45,7 +46,7 @@ const sampleMenuItems: MenuItem[] = [
   {
     id: '3',
     name: 'Pounded Yam with Egusi',
-    description: 'Smooth pounded yam with rich melon soup',
+    description: 'Smooth pounded yam with rich melon soup and assorted meat',
     price: 2800,
     category: 'Mains',
     cuisine: 'nigerian',
@@ -56,7 +57,9 @@ const sampleMenuItems: MenuItem[] = [
     preparationTime: 25,
     rating: 4.7,
     reviewCount: 189,
+    spiceLevel: 2,
   },
+  // Continental Cuisine
   {
     id: '4',
     name: 'Grilled Salmon',
@@ -103,6 +106,7 @@ const sampleMenuItems: MenuItem[] = [
     rating: 4.5,
     reviewCount: 76,
   },
+  // Fast Food
   {
     id: '7',
     name: 'Suya Burger',
@@ -127,8 +131,8 @@ const sampleMenuItems: MenuItem[] = [
     price: 5500,
     category: 'Pizza',
     cuisine: 'fastfood',
-    images: ['https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800'],
-    thumbnail: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800',
+    images: ['https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800',
     dietary: [],
     available: true,
     preparationTime: 20,
@@ -143,8 +147,8 @@ const sampleMenuItems: MenuItem[] = [
     price: 3800,
     category: 'Wings',
     cuisine: 'fastfood',
-    images: ['https://images.unsplash.com/photo-1608039829572-902a931c0f5e?w=800'],
-    thumbnail: 'https://images.unsplash.com/photo-1608039829572-902a931c0f5e?w=800',
+    images: ['https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800',
     dietary: [],
     available: true,
     preparationTime: 15,
@@ -152,12 +156,64 @@ const sampleMenuItems: MenuItem[] = [
     reviewCount: 178,
     spiceLevel: 1,
   },
+  {
+    id: '10',
+    name: 'Chicken Nuggets',
+    description: 'Crispy golden chicken nuggets with honey mustard dipping sauce',
+    price: 2800,
+    category: 'Chicken',
+    cuisine: 'fastfood',
+    images: ['https://images.unsplash.com/photo-1562967914-608f82629710?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800',
+    dietary: [],
+    available: true,
+    preparationTime: 12,
+    popular: true,
+    rating: 4.6,
+    reviewCount: 198,
+  },
+  {
+    id: '11',
+    name: 'French Fries',
+    description: 'Crispy golden fries seasoned with salt',
+    price: 1500,
+    category: 'Sides',
+    cuisine: 'fastfood',
+    images: ['https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800',
+    dietary: ['vegetarian'],
+    available: true,
+    preparationTime: 8,
+    rating: 4.4,
+    reviewCount: 156,
+  },
+  {
+    id: '12',
+    name: 'Grilled Chicken',
+    description: 'Tender grilled chicken with herbs and spices',
+    price: 4500,
+    category: 'Mains',
+    cuisine: 'continental',
+    images: ['https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=800'],
+    thumbnail: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=800',
+    dietary: ['gluten-free'],
+    available: true,
+    preparationTime: 25,
+    popular: true,
+    rating: 4.8,
+    reviewCount: 167,
+  },
 ];
 
 const categories = [
   { id: 'all', name: 'All' },
   { id: 'starters', name: 'Starters' },
   { id: 'mains', name: 'Mains' },
+  { id: 'chicken', name: 'Chicken' },
+  { id: 'burgers', name: 'Burgers' },
+  { id: 'pizza', name: 'Pizza' },
+  { id: 'wings', name: 'Wings' },
+  { id: 'sides', name: 'Sides' },
   { id: 'desserts', name: 'Desserts' },
   { id: 'drinks', name: 'Drinks' },
 ];
