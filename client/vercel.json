@@ -1,14 +1,6 @@
 {
   "rewrites": [
     { "source": "/api/:path*", "destination": "https://restaurant-ecommerce-cn1u.onrender.com/api/:path*" },
-    { "source": "/((?!api).*)", "destination": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    }
+    { "source": "/:path*", "destination": "/index.html" }
   ]
 }
