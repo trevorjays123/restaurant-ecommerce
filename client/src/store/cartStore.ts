@@ -2,6 +2,9 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartItem, MenuItem, Cart } from '@/types';
 
+// Safe add item with debouncing to prevent event loop blocking
+let isProcessingAdd = false;
+
 interface CartState extends Cart {
   addItem: (menuItem: MenuItem, quantity?: number, customizations?: CartItem['customizations']) => void;
   removeItem: (itemId: string) => void;
@@ -51,33 +54,44 @@ export const useCartStore = create<CartState>()(
       promoCode: undefined,
       
       addItem: (menuItem: MenuItem, quantity = 1, customizations) => {
-        const items = get().items;
-        const existingItemIndex = items.findIndex(
-          (item: CartItem) => 
-            item.menuItem.id === menuItem.id &&
-            JSON.stringify(item.customizations) === JSON.stringify(customizations)
-        );
+        // Prevent rapid consecutive calls from blocking event loop
+        if (isProcessingAdd) return;
+        isProcessingAdd = true;
         
-        let newItems: CartItem[];
-        
-        if (existingItemIndex > -1) {
-          newItems = items.map((item: CartItem, index: number) =>
-            index === existingItemIndex
-              ? { ...item, quantity: item.quantity + quantity }
-              : item
-          );
-        } else {
-          const newItem: CartItem = {
-            id: `${menuItem.id}-${Date.now()}`,
-            menuItem,
-            quantity,
-            customizations,
-          };
-          newItems = [...items, newItem];
-        }
-        
-        const totals = calculateTotals(newItems);
-        set({ items: newItems, ...totals });
+        // Use setTimeout to yield to event loop
+        setTimeout(() => {
+          try {
+            const items = get().items;
+            const existingItemIndex = items.findIndex(
+              (item: CartItem) => 
+                item.menuItem.id === menuItem.id &&
+                JSON.stringify(item.customizations) === JSON.stringify(customizations)
+            );
+            
+            let newItems: CartItem[];
+            
+            if (existingItemIndex > -1) {
+              newItems = items.map((item: CartItem, index: number) =>
+                index === existingItemIndex
+                  ? { ...item, quantity: item.quantity + quantity }
+                  : item
+              );
+            } else {
+              const newItem: CartItem = {
+                id: `${menuItem.id}-${Date.now()}`,
+                menuItem,
+                quantity,
+                customizations,
+              };
+              newItems = [...items, newItem];
+            }
+            
+            const totals = calculateTotals(newItems);
+            set({ items: newItems, ...totals });
+          } finally {
+            isProcessingAdd = false;
+          }
+        }, 10); // Small delay to prevent blocking
       },
       
       removeItem: (itemId: string) => {
